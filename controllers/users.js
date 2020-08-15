@@ -14,6 +14,15 @@ const { NODE_ENV, JWT_SECRET } = process.env; // на проде у нас JWT_S
 
 /* ******************************************************* */
 
+module.exports.getUserInfo = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => res.send({
+      email: user.email,
+      name: user.name,
+    }))
+    .catch(next);
+};
+
 module.exports.createUser = (req, res, next) => {
   const {
     email, name, password,
@@ -69,9 +78,6 @@ module.exports.login = (req, res, next) => {
   if (!email || !password) {
     throw new BadRequestError('Данные пользователя введены не полность. Необходимы и email и пароль, чтобы авторизироваться');
   }
-
-  console.log(email, password);
-  console.log(User.findUserByCredentials(email, password));
 
   return User.findUserByCredentials(email, password)
     // если аутентификация прошла успешно, вернётся объект пользователя

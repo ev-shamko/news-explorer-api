@@ -38,8 +38,16 @@ mongoose.connect('mongodb://localhost:27017/newsExplorerDB', {
 /* **************** РОУТЫ ********************** */
 
 const notokenAuth = require('./routes/auth');
+const usersRouter = require('./routes/users');
+const { auth } = require('./middlewares/auth');
 
 app.use('/', notokenAuth); // создание нового пользователя и авторизация для получения токена
+
+// добавляем авторизационный миддлвэр для всех роутов ниже
+// всем роутам ниже этой строчки будет добавляться токен для авторизации в req.user._id
+app.use(auth);
+
+app.use('/', usersRouter);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
