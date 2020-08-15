@@ -1,2 +1,8 @@
 # news-explorer-api
-diploma for Yandex Praktikum: express, mongoDB, etc
+Серверная часть дипломного проекта для Яндекс Практикума
+
+#### Что умеет сервер:
+
+#### Технологии:
+
+#### Примеры запросов к API ():
