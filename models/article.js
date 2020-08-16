@@ -48,7 +48,7 @@ const articleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, // сюда запишется ссылка на создателя карточки
     required: true,
     ref: 'user',
-    select: false, // бд по умолчанию не будет возвращать это поле
+    // select: false, // хз как удалять статью с этой настройкой
   },
 });
 
