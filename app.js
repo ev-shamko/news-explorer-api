@@ -39,6 +39,7 @@ mongoose.connect('mongodb://localhost:27017/newsExplorerDB', {
 
 const notokenAuth = require('./routes/auth');
 const usersRouter = require('./routes/users');
+const articlesRouter = require('./routes/articles');
 const { auth } = require('./middlewares/auth');
 
 app.use('/', notokenAuth); // создание нового пользователя и авторизация для получения токена
@@ -48,6 +49,7 @@ app.use('/', notokenAuth); // создание нового пользовате
 app.use(auth);
 
 app.use('/', usersRouter);
+app.use('/', articlesRouter);
 
 app.get('/crash-test', () => {
   setTimeout(() => {

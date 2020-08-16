@@ -8,7 +8,7 @@ const jwtDevKey = require('../jwskey'); // этот ключ используе�
 // импорт собственных конструкторов ошибок 400, 401, 404
 const BadRequestError = require('../errors/err-bad-req');
 const AuthorizationError = require('../errors/err-auth');
-const NotFoundError = require('../errors/err-not-found');
+// const NotFoundError = require('../errors/err-not-found');
 
 const { NODE_ENV, JWT_SECRET } = process.env; // на проде у нас JWT_SECRET, а не jwtDevKey
 
