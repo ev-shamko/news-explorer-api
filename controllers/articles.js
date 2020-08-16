@@ -5,7 +5,7 @@ const Article = require('../models/article');
 // импорт собственных конструкторов ошибок 400, 401, 404
 const BadRequestError = require('../errors/err-bad-req');
 // const AuthorizationError = require('../errors/err-auth');
-// const NotFoundError = require('../errors/err-not-found');
+const NotFoundError = require('../errors/err-not-found');
 
 /* **************************************************** */
 
@@ -42,4 +42,16 @@ module.exports.createArticle = (req, res, next) => {
       }
     })
     .catch(next); // стандартная ошибка 500; эквивалентно .catch(err => next(err));
+};
+
+module.exports.getAllArticles = (req, res, next) => {
+
+  Article.find({ owner: req.user._id })
+    .then((articles) => {
+      if (!articles) {
+        throw new NotFoundError('Не найдены сохранённые статьи у данного пользователя');
+      }
+      res.send({ data: articles });
+    })
+    .catch(next);
 };

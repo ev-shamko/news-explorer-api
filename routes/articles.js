@@ -11,7 +11,7 @@ DELETE /articles/articleId
 */
 const articlesRouter = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { createArticle } = require('../controllers/articles');
+const { createArticle, getAllArticles } = require('../controllers/articles');
 
 articlesRouter.post(
   '/articles',
@@ -27,6 +27,11 @@ articlesRouter.post(
     }),
   }),
   createArticle,
+);
+
+articlesRouter.get(
+  '/articles',
+  getAllArticles,
 );
 
 module.exports = articlesRouter;
