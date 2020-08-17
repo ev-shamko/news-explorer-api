@@ -2,12 +2,12 @@
 
 require('dotenv').config();
 const express = require('express');
-const { errors } = require('celebrate'); // тестирует запросы в роут '/' и работает с ошибками от celebrate
-const cookieParser = require('cookie-parser'); // читает куки и разбирает полученную строку в объект
-const mongoose = require('mongoose'); // ODM пакет для взаимодействия с mongoDB
-const helmet = require('helmet'); // проставляет заголовки для безопасности: set HTTP response headers
-const bodyParser = require('body-parser'); // внимание! обязателен! И ниже его app.use -аем дважды
-const { requestLogger, errorLogger } = require('./middlewares/logger'); // импорт логгеров для запросов и ошибок должен быть последним в этом блоке
+const { errors } = require('celebrate');
+const cookieParser = require('cookie-parser'); // обязателен! читает куки и разбирает полученную строку в объект
+const mongoose = require('mongoose'); //
+const helmet = require('helmet'); // проставляет заголовки HTTP
+const bodyParser = require('body-parser'); // обязателен!
+const { requestLogger, errorLogger } = require('./middlewares/logger'); // импортируется последним!
 
 /* **************** Сервер ********************* */
 
@@ -15,8 +15,7 @@ const { PORT = 3000 } = process.env;
 const app = express();
 app.use(helmet()); // рекомендуется использовать как можно раньше
 
-// эти две строчки обязательные. Они собираюют из пакетов объект req.body
-// без них req.body = undefined
+// без этих двух строчек req.body = undefined
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -26,8 +25,6 @@ app.use(requestLogger); // логгер реквестов подключаем 
 
 /* **************** Соединение с локальной БД ********************** */
 
-// кстати, ссылку на порт тоже можно в .env запихнуть
-// https://habr.com/ru/company/ruvds/blog/351254/
 mongoose.connect('mongodb://localhost:27017/newsExplorerDB', {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -40,6 +37,7 @@ mongoose.connect('mongodb://localhost:27017/newsExplorerDB', {
 const notokenAuth = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const articlesRouter = require('./routes/articles');
+const serverIternalError = require('./errors/err-server');
 const NotFoundError = require('./errors/err-not-found'); // ошибка 404 для плохого запроса
 const { auth } = require('./middlewares/auth');
 
@@ -52,7 +50,7 @@ app.get('/crash-test', () => {
 
 app.use('/', notokenAuth); // создание нового пользователя и авторизация для получения токена
 
-// добавляем авторизационный миддлвэр для всех роутов ниже
+// добавляем авторизационный миддлвэр:
 // всем роутам ниже этой строчки будет добавляться токен для авторизации в req.user._id
 app.use(auth);
 
@@ -70,19 +68,8 @@ app.use('/', (req, res, next) => {
 app.use(errorLogger); // подключаем логгер ошибок выше всех ошибок
 app.use(errors()); // обработчик ошибок celebrate, подключаем именно тут
 
-// этот код обрабатывает все "неучтённые" ошибки
-app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  // в next передаём экземпляр ошибки, чтобы она попала в ответ:
-  // если у ошибки нет статуса, выставляем 500 и считаем произошедшее ошибкой сервера
-  const { statusCode = 500, message } = err;
-
-  // если в других модулях вызывается next() с аргументом-ошибкой,
-  // то в этот обработчик приходит запрос уже со статусом и сообщением
-  // иначе стандартно возвращаем статус 500 (это поведение описано строчкой выше)
-  res.status(statusCode).send({
-    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
-  });
-});
+// ошибка 500. Этот код обрабатывает все "неучтённые" ошибки
+app.use(serverIternalError);
 
 /* ********************************************* */
 

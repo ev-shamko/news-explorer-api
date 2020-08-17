@@ -80,9 +80,8 @@ module.exports.login = (req, res, next) => {
   }
 
   return User.findUserByCredentials(email, password)
-    // если аутентификация прошла успешно, вернётся объект пользователя
     .then((user) => {
-      // в пейлоуд токена записываем только _id
+      // в пейлоуд токена записываем только _id !
       const token = jwt.sign(
         { _id: user._id },
         (NODE_ENV === 'production' ? JWT_SECRET : jwtDevKey), // если мы на проде (найден .env файл), то будет использоваться ключ из JWT_SECRET
