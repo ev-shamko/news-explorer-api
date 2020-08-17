@@ -2,15 +2,26 @@
 Серверная часть дипломного проекта для Яндекс Практикума
 
 #### Ссылки:
+http://84.201.149.81
+http://mesto-nodeapp.tk и http://www.mesto-nodeapp.tk
+https://mesto-nodeapp.tk и https://www.mesto-nodeapp.tk
+
 
 #### Что умеет сервер:
+Регистрация и авторизация пользователей.
+Взаимодействие с MongoDB. Сохранение статей, возвращение списка всех статей, удаление статей.
+Выдача авторизационного токена (jwt).
+Валидация входящих запросов.
 
 #### Используемые технологии:
-Node.js, express, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
+Node.js, express, nginx, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 
-#### Примеры запросов к API ():
 
-* **Регистрация нового пользователя:**   POST .../signup
+----------------------------------------------------------------
+
+#### Примеры запросов к API:
+
+* **Регистрация нового пользователя:**   POST https://mesto-nodeapp.tk/signup
 ```
 Тело запроса:
 {
@@ -20,7 +31,7 @@ Node.js, express, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 }
 ```
 
-* **Авторизация:**   POST .../signin
+* **Авторизация:**   POST https://mesto-nodeapp.tk/signin
 ```
 Тело запроса:
 {
@@ -29,11 +40,11 @@ Node.js, express, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 }
 ```
 
-* **Получить свою юзердату:**     GET .../users/me (+ токен авторизации)
+* **Получить свою юзердату:**     GET https://mesto-nodeapp.tk/users/me (+ токен авторизации)
 
-* **Получить список своих сохранённых статей:**   GET .../articles (+ токен авторизации)
+* **Получить список своих сохранённых статей:**   GET https://mesto-nodeapp.tk/articles (+ токен авторизации)
 
-* **Сохранить новую статью:**   POST .../articles   (+ токен авторизации)
+* **Сохранить новую статью:**   POST https://mesto-nodeapp.tk/articles   (+ токен авторизации)
 ```
 Тело запроса:
 {
@@ -47,4 +58,15 @@ Node.js, express, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 }
 ```
 
-* **Удалить статью по её id:**   DELETE .../articles/5f38c3d2f072ca12cc8fcab5 (+ токен авторизации)
+* **Удалить статью по её id:**   DELETE https://mesto-nodeapp.tk/articles/5f38c3d2f072ca12cc8fcab5 (+ токен авторизации)
+
+
+#### Как запустить локально:
+1.	Клонируйте репозиторий
+2.	$ npm i
+3.	Проверьте, установлена ли у вас MongoDB
+4.	Запустите локальный сервер одной из этих команд:
+```
+$ npm run start
+$ npm run dev      (тут будет hot reload)
+```
