@@ -13,7 +13,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger'); // им�
 /* **************** Настройки cors ********************* */
 
 const whitelist = [
-  'http://localhost:8080/',
+  'http://localhost:8080',
   'https://ev-shamko.github.io/news-explorer-frontend',
   'http://news-collection.space',
   'http://www.news-collection.space',
@@ -24,7 +24,8 @@ const whitelist = [
 const corsOptions = {
   // console.log(`cors announces origin: ${origin}`);
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    // cтрочка ниже -  в учебных целях, а норм.настройки смотри в доках cors
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
