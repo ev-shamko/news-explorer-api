@@ -31,6 +31,7 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
+  credentials: true, // чтобы можно было принимать во входящях запросах наш jwt токен
 };
 
 /* **************** Сервер ********************* */
