@@ -9,6 +9,8 @@ http://api.news-collection.space и http://www.api.news-collection.space
 https://api.news-collection.space и https://www.api.mesto-nodeapp.tk
 
 
+Веб-версия мониторинга работы сервера от pm2-менеджера: (вход только по логину-паролю разработчика): https://app.pm2.io/bucket/5f275b28b527dc6f704eff10/backend/overview/servers
+
 #### Что умеет сервер:
 Регистрация и авторизация пользователей.
 Взаимодействие с MongoDB. Сохранение статей, возвращение списка всех статей, удаление статей.
