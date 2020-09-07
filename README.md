@@ -5,7 +5,8 @@
 http://130.193.44.198
 
 http://api.news-collection.space и http://www.api.news-collection.space
-https://api.news-collection.space и https://www.mesto-nodeapp.tk
+
+https://api.news-collection.space и https://www.api.mesto-nodeapp.tk
 
 
 #### Что умеет сервер:
