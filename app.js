@@ -10,12 +10,34 @@ const helmet = require('helmet'); // проставляет заголовки H
 const bodyParser = require('body-parser'); // обязателен!
 const { requestLogger, errorLogger } = require('./middlewares/logger'); // импортируется последним!
 
+/* **************** Настройки cors ********************* */
+
+const whitelist = [
+  'http://localhost:8080/',
+  'https://ev-shamko.github.io/news-explorer-frontend',
+  'http://news-collection.space',
+  'http://www.news-collection.space',
+  'https://news-collection.space',
+  'https://www.news-collection.space',
+];
+
+const corsOptions = {
+  // console.log(`cors announces origin: ${origin}`);
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
 /* **************** Сервер ********************* */
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(cors()); // позволяет обращаться к API из фронта на localhost или gh-pages https://webdevblog.ru/chto-takoe-cors/
+app.use(cors(corsOptions)); // позволяет обращаться к API из фронта на localhost или gh-pages https://webdevblog.ru/chto-takoe-cors/
 
 app.use(helmet()); // рекомендуется использовать как можно раньше
 
@@ -41,7 +63,7 @@ mongoose.connect('mongodb://localhost:27017/newsExplorerDB', {
 const notokenAuth = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const articlesRouter = require('./routes/articles');
-const serverIternalError = require('./errors/err-server');
+const serverInternalError = require('./errors/err-server');
 const NotFoundError = require('./errors/err-not-found'); // ошибка 404 для плохого запроса
 const { auth } = require('./middlewares/auth');
 
@@ -73,7 +95,7 @@ app.use(errorLogger); // подключаем логгер ошибок выше
 app.use(errors()); // обработчик ошибок celebrate, подключаем именно тут
 
 // ошибка 500. Этот код обрабатывает все "неучтённые" ошибки
-app.use(serverIternalError);
+app.use(serverInternalError);
 
 /* ********************************************* */
 
