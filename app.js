@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors'); // делает api публичным и автоматизирует эти действия: https://webdevblog.ru/chto-takoe-cors/
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser'); // обязателен! читает куки и разбирает полученную строку в объект
 const mongoose = require('mongoose'); //
@@ -13,6 +14,9 @@ const { requestLogger, errorLogger } = require('./middlewares/logger'); // им�
 
 const { PORT = 3000 } = process.env;
 const app = express();
+
+app.use(cors()); // позволяет обращаться к API из фронта на localhost или gh-pages https://webdevblog.ru/chto-takoe-cors/
+
 app.use(helmet()); // рекомендуется использовать как можно раньше
 
 // без этих двух строчек req.body = undefined

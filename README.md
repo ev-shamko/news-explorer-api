@@ -2,9 +2,11 @@
 Серверная часть дипломного проекта для Яндекс Практикума
 
 #### Ссылки:
-http://84.201.149.81
-http://mesto-nodeapp.tk и http://www.mesto-nodeapp.tk
-https://mesto-nodeapp.tk и https://www.mesto-nodeapp.tk
+http://130.193.44.198
+
+http://api.news-collection.space и http://www.api.news-collection.space
+
+https://api.news-collection.space и https://www.api.mesto-nodeapp.tk
 
 
 #### Что умеет сервер:
@@ -21,7 +23,7 @@ Node.js, express, nginx, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 
 #### Примеры запросов к API:
 
-* **Регистрация нового пользователя:**   POST https://mesto-nodeapp.tk/signup
+* **Регистрация нового пользователя:**   POST https://api.news-collection.space/signup
 ```
 Тело запроса:
 {
@@ -31,7 +33,7 @@ Node.js, express, nginx, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 }
 ```
 
-* **Авторизация:**   POST https://mesto-nodeapp.tk/signin
+* **Авторизация:**   POST https://api.news-collection.space/signin
 ```
 Тело запроса:
 {
@@ -40,11 +42,11 @@ Node.js, express, nginx, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 }
 ```
 
-* **Получить свою юзердату:**     GET https://mesto-nodeapp.tk/users/me (+ токен авторизации)
+* **Получить свою юзердату:**     GET https://api.news-collection.space/users/me (+ токен авторизации)
 
-* **Получить список своих сохранённых статей:**   GET https://mesto-nodeapp.tk/articles (+ токен авторизации)
+* **Получить список своих сохранённых статей:**   GET https://api.news-collection.space/articles (+ токен авторизации)
 
-* **Сохранить новую статью:**   POST https://mesto-nodeapp.tk/articles   (+ токен авторизации)
+* **Сохранить новую статью:**   POST https://api.news-collection.space/articles   (+ токен авторизации)
 ```
 Тело запроса:
 {
@@ -58,7 +60,7 @@ Node.js, express, nginx, MongoDB, Mongoose, Joi, Celebrate, JWT, pm2
 }
 ```
 
-* **Удалить статью по её id:**   DELETE https://mesto-nodeapp.tk/articles/5f38c3d2f072ca12cc8fcab5 (+ токен авторизации)
+* **Удалить статью по её id:**   DELETE https://api.news-collection.space/articles/5f38c3d2f072ca12cc8fcab5 (+ токен авторизации)
 
 
 #### Как запустить локально:
