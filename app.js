@@ -14,7 +14,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger'); // им�
 
 const whitelist = [
   'http://localhost:8080',
-  'https://ev-shamko.github.io/news-explorer-frontend',
+  'https://ev-shamko.github.io',
   'http://news-collection.space',
   'http://www.news-collection.space',
   'https://news-collection.space',
